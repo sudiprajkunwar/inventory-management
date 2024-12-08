@@ -5,7 +5,7 @@ GlobalSupplier::GlobalSupplier(const std::string &name) : Supplier(name) {}
 
 void GlobalSupplier::notifyRestock(const std::string &productId, int quantity)
 {
-    std::cout << "Global Supplier: Restocking product " << productId << " with quantity " << quantity << std::endl;
+    std::cout << "Notification => Global Supplier: Restocking product " << productId << " with quantity " << quantity << std::endl;
 }
 
 void GlobalSupplier::subscribeToOrganization(Organization *org)

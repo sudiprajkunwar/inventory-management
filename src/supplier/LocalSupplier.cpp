@@ -5,7 +5,7 @@ LocalSupplier::LocalSupplier(const std::string &name) : Supplier(name) {}
 
 void LocalSupplier::notifyRestock(const std::string &productId, int quantity)
 {
-    std::cout << "Local Supplier: Restocking product " << productId << " with quantity " << quantity << std::endl;
+    std::cout << "Notification => Local Supplier: Restocking product " << productId << " with quantity " << quantity << std::endl;
 }
 
 void LocalSupplier::subscribeToOrganization(Organization *org)

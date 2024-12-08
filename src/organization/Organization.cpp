@@ -111,14 +111,28 @@ void Organization::generateReport() const
     }
 
     // 2. List of products that need restocking
-    std::cout << "\nProducts that need restocking:\n";
     for (const auto &product : products)
     {
         if (product.needsRestock())
         {
+            std::cout << "\nProducts that need restocking:\n";
             int quantityNeeded = product.getReorderThreshold() - product.getStockLevel();
             std::cout << "Product: " << product.getProductName()
                       << ", Quantity Needed: " << quantityNeeded << "\n";
+        }
+    }
+
+    // List all suppliers
+    std::cout << "\nSuppliers:" << std::endl;
+    if (suppliers.empty())
+    {
+        std::cout << "No suppliers added." << std::endl;
+    }
+    else
+    {
+        for (const auto &supplier : suppliers)
+        {
+            std::cout << supplier->getName() << std::endl;
         }
     }
 }
