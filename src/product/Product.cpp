@@ -35,12 +35,12 @@ int Product::getReorderThreshold() const
     return reorderThreshold;
 }
 
-void Product::updateStockLevel(int soldQuantity)
+void Product::updateStockLevel(int newStock)
 {
-    stockLevel -= soldQuantity;
+    stockLevel = newStock;
 }
 
-bool Product::needsRestock()
+bool Product::needsRestock() const
 {
     return stockLevel < reorderThreshold;
 }

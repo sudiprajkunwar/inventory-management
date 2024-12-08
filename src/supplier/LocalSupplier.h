@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 
-class Organization; // Forward declaration to avoid circular dependency
+class Organization; 
 
 class LocalSupplier : public Supplier
 {

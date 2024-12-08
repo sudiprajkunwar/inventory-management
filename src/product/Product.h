@@ -19,7 +19,7 @@ public:
 
     // Setter for stock level
     void updateStockLevel(int soldQuantity);
-    bool needsRestock();
+    bool needsRestock() const;
 
 private:
     std::string productId;

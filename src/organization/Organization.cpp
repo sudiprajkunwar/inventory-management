@@ -69,35 +69,56 @@ void Organization::notifySuppliers(const std::string &productID, int quantity)
 {
     for (auto &supplier : suppliers)
     {
-        if (supplier->isSupplierSubscribed())
-        {
-            supplier->notifyRestock(productID, quantity);
-        }
+        supplier->notifyRestock(productID, quantity);
     }
 }
 
-void Organization::sellProduct(const std::string &productId, int quantity)
+void Organization::updateStockLevel(const std::string &productID, int newStock)
 {
-    Product *product = searchProductById(productId);
-    if (!product)
+    for (auto &product : products)
     {
-        std::cout << "Product with ID " << productId << " not found.\n";
-        return;
+        if (product.getProductId() == productID)
+        {
+            product.updateStockLevel(newStock);
+            std::cout << "Stock level for product " << product.getProductName() << " updated to " << product.getStockLevel() << std::endl;
+
+            if (product.needsRestock())
+            {
+                int quantityNeeded = product.getReorderThreshold() - product.getStockLevel();
+                for (auto &supplier : suppliers)
+                {
+                    supplier->notifyRestock(product.getProductId(), quantityNeeded);
+                }
+            }
+            return;
+        }
+    }
+    std::cout << "Product with ID " << productID << " not found." << std::endl;
+}
+
+void Organization::generateReport() const
+{
+    std::cout << "===== Inventory Report =====\n";
+
+    // 1. List of all products with their details
+    std::cout << "\nAll Products:\n";
+    for (const auto &product : products)
+    {
+        std::cout << "Product Name: " << product.getProductName()
+                  << ", Category: " << product.getCategory()
+                  << ", Price: " << product.getPrice()
+                  << ", Stock Level: " << product.getStockLevel() << "\n";
     }
 
-    if (product->getStockLevel() < quantity)
+    // 2. List of products that need restocking
+    std::cout << "\nProducts that need restocking:\n";
+    for (const auto &product : products)
     {
-        std::cout << "Insufficient stock for product " << productId << ".\n";
-        return;
-    }
-
-    product->updateStockLevel(quantity);
-    std::cout << "Sold " << quantity << " units of product " << product->getProductName() << ". Remaining stock: " << product->getStockLevel() << "\n";
-
-    // Check if stock is below the threshold and notify suppliers if needed
-    if (product->getStockLevel() < product->getReorderThreshold())
-    {
-        int restockQuantity = product->getReorderThreshold() - product->getStockLevel();
-        notifySuppliers(productId, restockQuantity);
+        if (product.needsRestock())
+        {
+            int quantityNeeded = product.getReorderThreshold() - product.getStockLevel();
+            std::cout << "Product: " << product.getProductName()
+                      << ", Quantity Needed: " << quantityNeeded << "\n";
+        }
     }
 }

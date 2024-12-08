@@ -22,7 +22,9 @@ public:
 
     void addSupplier(std::shared_ptr<Supplier> supplier);
     void notifySuppliers(const std::string &productId, int quantity);
-    void sellProduct(const std::string &productId, int quantity);
+    void updateStockLevel(const std::string &productID, int newStock);
+
+    void generateReport() const;
 };
 
 #endif

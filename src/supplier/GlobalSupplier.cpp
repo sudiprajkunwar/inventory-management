@@ -10,7 +10,7 @@ void GlobalSupplier::notifyRestock(const std::string &productId, int quantity)
 
 void GlobalSupplier::subscribeToOrganization(Organization *org)
 {
-    // Implement subscription logic here, for now just a message
+    Supplier::subscribeToOrganization(org);
     std::cout << name << " has subscribed to the organization for notifications." << std::endl;
-    // Similar to LocalSupplier, in a real implementation, you would add the supplier to a list of subscribers.
+
 }

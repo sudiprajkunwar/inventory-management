@@ -10,15 +10,7 @@ const std::string &Supplier::getName() const
 
 void Supplier::subscribeToOrganization(Organization *org)
 {
-    if (!isSubscribed)
-    {
-        isSubscribed = true;
-        org->addSupplier(shared_from_this());
-        std::cout << name << " has subscribed to the organization for notifications." << std::endl;
-    }
+    std::shared_ptr<Supplier> self = shared_from_this();
+    org->addSupplier(self);
 }
-// Check if the supplier is subscribed
-bool Supplier::isSupplierSubscribed() const
-{
-    return isSubscribed;
-}
+
