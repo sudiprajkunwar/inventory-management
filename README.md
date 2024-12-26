@@ -1,7 +1,3 @@
-Thank you for pointing that out. Here's an updated version of the `README.md` to reflect that the `main.cpp` file is located outside the `src/` directory:
-
----
-
 # Inventory Management System (C++)
 
 ## Overview
